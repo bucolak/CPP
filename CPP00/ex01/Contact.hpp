@@ -15,8 +15,6 @@ private:
 public:
     Contact();
 
-    Contact(std::string first_name, std::string last_name, std::string nick_name, std::string phone_number,  std::string darkest_string);
-
     void setting_first_name(std::string first_name);
     void setting_last_name(std::string last_name);
     void setting_nick_name(std::string nick_name);
@@ -28,8 +26,6 @@ public:
     std::string getting_nick_name();
     std::string getting_phone_number();
     std::string getting_darkest_string();
-
-    ~Contact();
 };
 
 #endif

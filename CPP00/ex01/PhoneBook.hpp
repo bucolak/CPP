@@ -19,8 +19,6 @@ public:
     void add_contact();
     void search_contact();
     int getting_size_of_contact();
-
-    ~PhoneBook();
 };
 
 

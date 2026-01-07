@@ -2,15 +2,6 @@
 
 Contact::Contact(){};
 
-Contact::Contact(std::string first_name, std::string last_name, std::string nick_name, std::string phone_number,  std::string darkest_string)
-{
-    this->first_name=first_name;
-    this->last_name=last_name;
-    this->nick_name=nick_name;
-    this->phone_number=phone_number;
-    this->darkest_string=darkest_string;
-}
-
 void Contact::setting_first_name(std::string first_name)
 {
     this->first_name = first_name;
@@ -59,9 +50,4 @@ std::string Contact::getting_phone_number()
 std::string Contact::getting_darkest_string()
 {
     return darkest_string;
-}
-
-Contact::~Contact()
-{
-    std::cout<<"Contact Destructor executed!"<<std::endl;
 }
