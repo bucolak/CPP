@@ -2,7 +2,6 @@
 
 HumanA::HumanA(std::string name, Weapon &weapon) : weapon(weapon)
 {
-    this->weapon = weapon;
     this->name = name;
 }
 

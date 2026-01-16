@@ -23,11 +23,24 @@ void Harl::error()
 void Harl::complain(std::string level)
 {
     std::string levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+    void (Harl::*funcs[4])() = {
+        &Harl::debug,
+        &Harl::warning,
+        &Harl::info,
+        &Harl::error
+    };
+
     for(int i = 0;i< 4;i++)
     {
         if(levels[i] == level)
         {
-            (this)
+            (this->*funcs[i])();
+            return ;
         }
     }
+    std::cout<<"Invalid level input: "<<level<<std::endl;
 }
+
+// int topla(int a, int b) { return a + b; }
+
+// int (*fonksiyon_ptr)(int, int) = &topla;  // topla'nın adresini tuttuk
