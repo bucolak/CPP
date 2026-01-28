@@ -1,19 +1,72 @@
 #include "PhoneBook.hpp"
 
-static int is_numeric(std::string temporary_str)
-{
-    int i = 0;
-    if(temporary_str.empty())
-        return 0;
+PhoneBook::PhoneBook(){
+    size_of_contact = 0;
+}
 
-    if(temporary_str[i] =='-' || temporary_str[i] =='+')
-        i++;
-    for(;temporary_str[i];i++)
+int PhoneBook::getting_size_of_contact()
+{
+    return size_of_contact;
+}
+
+void PhoneBook::add_contact()
+{
+    std::string input;
+
+    index_of_contacts = size_of_contact % 8;
+    while(1)
     {
-        if(!std::isdigit(temporary_str[i]))
-            return 0;
+        std::cout<<"Enter the First Name: ";
+        if(!std::getline(std::cin, input))
+            return;
+        if(!is_valid_i(input) || !is_full_space(input))
+            continue;
+        contact[index_of_contacts].setting_first_name(input);
+        break;
+    }	
+    while(1)
+    {
+        std::cout<<"Enter the Last Name: ";
+        if(!std::getline(std::cin, input))
+            return;
+        if(!is_valid_i(input) || !is_full_space(input))
+            continue;
+        contact[index_of_contacts].setting_last_name(input);
+        break;
     }
-    return 1;
+    while(1)
+    {
+        std::cout<<"Enter the Nick Name: ";
+        if(!std::getline(std::cin, input))
+            return;
+        if(!is_valid_i(input) || !is_full_space(input))
+            continue;
+        contact[index_of_contacts].setting_nick_name(input);
+        break;
+    }
+    while(1)
+    {
+        std::cout<<"Enter the Phone Number: ";
+        if(!std::getline(std::cin, input))
+            return;
+        if(!is_valid_i(input))
+            continue;
+        if(!is_numeric(input))
+            continue;
+        contact[index_of_contacts].setting_phone_number(input);
+        break;
+    }
+    while(1)
+    {
+        std::cout<<"Enter the Darkest String: ";
+        if(!std::getline(std::cin, input))
+            return;
+        if(!is_valid_i(input) || !is_full_space(input))
+            continue;
+        contact[index_of_contacts].setting_darkest_string(input);
+        break;
+    }
+    size_of_contact++;
 }
 
 void PhoneBook::search_contact()

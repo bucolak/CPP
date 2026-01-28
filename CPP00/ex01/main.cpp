@@ -6,6 +6,7 @@ int main()
     std::string first_input;
 
     std::cout<<"Welcome to Menu!"<<std::endl;
+    std::cout<<"Please, Enter a valid input (ADD, SEARCH, EXIT)!"<<std::endl;
     while(1)
     {
         std::cout<<"> ";

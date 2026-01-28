@@ -21,5 +21,8 @@ public:
     int getting_size_of_contact();
 };
 
+bool is_numeric(std::string temporary_str);
+bool is_valid_i(std::string str);
+bool is_full_space(std::string str);
 
 #endif

@@ -1,6 +1,6 @@
-NAME = phonebook
+NAME = PhoneBook
 
-SRC = main.cpp initialize_contact.cpp initialize_phoneBook.cpp add.cpp search.cpp
+SRC = main.cpp Contact.cpp PhoneBook.cpp utils.cpp
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
