@@ -11,4 +11,3 @@ void HumanA::attack()
 }
 
 HumanA::~HumanA(){};
-

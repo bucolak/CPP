@@ -25,8 +25,8 @@ void Harl::complain(std::string level)
     std::string levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
     void (Harl::*funcs[4])() = {
         &Harl::debug,
-        &Harl::warning,
         &Harl::info,
+        &Harl::warning,
         &Harl::error
     };
 
@@ -38,7 +38,6 @@ void Harl::complain(std::string level)
             return ;
         }
     }
-    std::cout<<"Invalid level input: "<<level<<std::endl;
 }
 
 void Harl::filter(std::string level)
@@ -60,25 +59,17 @@ void Harl::filter(std::string level)
         case 0:
             std::cout << "[ DEBUG ]" << std::endl;
             this->complain("DEBUG");
-            // fall through
         case 1:
             std::cout << "[ INFO ]" << std::endl;
             this->complain("INFO");
-            // fall through
         case 2:
             std::cout << "[ WARNING ]" << std::endl;
             this->complain("WARNING");
-            // fall through
         case 3:
             std::cout << "[ ERROR ]" << std::endl;
             this->complain("ERROR");
-            // fall through
             break;
         default:
             std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
     }
 }
-
-// int topla(int a, int b) { return a + b; }
-
-// int (*fonksiyon_ptr)(int, int) = &topla;  // topla'nın adresini tuttuk

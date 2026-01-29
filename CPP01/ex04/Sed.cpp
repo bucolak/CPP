@@ -13,17 +13,20 @@ void Sed::replace()
     size_t found;
     std::string outfile_name;
 
-    std::ifstream infile(filename.c_str());
-    outfile_name = filename + ".replace";
-    std::ofstream outfile(outfile_name.c_str());
-
-    if(s1.empty() || s2.empty())
+    if(s1.empty())
     {
         std::cout<<"Empty string!"<<std::endl;
         return ;
     }
-
-    if(!infile || !outfile)
+    std::ifstream infile(filename.c_str());
+    if(!infile)
+    {
+        std::cout<<"File opening error!"<<std::endl;
+        return ;
+    }
+    outfile_name = filename + ".replace";
+    std::ofstream outfile(outfile_name.c_str());
+    if(!outfile)
     {
         std::cout<<"File opening error!"<<std::endl;
         return ;
