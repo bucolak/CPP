@@ -37,24 +37,24 @@ void Fixed::setRawBits(int const raw)
 
 Fixed::Fixed(const int inum)
 {
-    fixed_point_num = (inum<<8);
+    fixed_point_num = (inum<<no_fractional_bits);
     std::cout<<"Int constructor called"<<std::endl;
 }
 
 Fixed::Fixed(const float fnum)
 {
-    fixed_point_num = fnum*256;
+    fixed_point_num = roundf(fnum * (1 << no_fractional_bits));
     std::cout<<"Float constructor called"<<std::endl;
 }
 
 float Fixed::toFloat( void ) const
 {
-    return (float)fixed_point_num / (1 >> no_fractional_bits);
+    return (float)fixed_point_num / (1 << no_fractional_bits);
 }
 
 int Fixed::toInt( void ) const
 {
-    return fixed_point_num / (1 << no_fractional_bits);
+    return (fixed_point_num << no_fractional_bits);
 }
 
 std::ostream& operator<<(std::ostream& out, const Fixed&obj)

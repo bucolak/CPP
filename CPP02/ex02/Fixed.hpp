@@ -2,6 +2,7 @@
 #define FIXED_HPP
 
 #include <iostream>
+#include <cmath>
 
 class Fixed{
 
@@ -33,9 +34,9 @@ class Fixed{
         Fixed operator/(const Fixed& other) const;
 
         Fixed& operator++();
-        Fixed& operator++(int);
+        Fixed operator++(int);
         Fixed& operator--();
-        Fixed& operator--(int);
+        Fixed operator--(int);
 
         static Fixed& min(Fixed& a, Fixed& b);
         static const Fixed& min(const Fixed& a, const Fixed& b);

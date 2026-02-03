@@ -37,13 +37,13 @@ void Fixed::setRawBits(int const raw)
 
 Fixed::Fixed(const int inum)
 {
-    fixed_point_num = inum*256;
+    fixed_point_num = (inum<<no_fractional_bits);
     std::cout<<"Int constructor called"<<std::endl;
 }
 
 Fixed::Fixed(const float fnum)
 {
-    fixed_point_num = fnum*256;
+    fixed_point_num = roundf(fnum * (1 << no_fractional_bits));
     std::cout<<"Float constructor called"<<std::endl;
 }
 
@@ -54,7 +54,7 @@ float Fixed::toFloat( void ) const
 
 int Fixed::toInt( void ) const
 {
-    return fixed_point_num / (1 << no_fractional_bits);
+    return (fixed_point_num >> no_fractional_bits);
 }
 
 std::ostream& operator<<(std::ostream& out, const Fixed&obj)
@@ -110,14 +110,14 @@ Fixed Fixed::operator-(const Fixed& other) const
 Fixed Fixed::operator*(const Fixed& other) const
 {
     Fixed output;
-    output.setRawBits(this->fixed_point_num*other.fixed_point_num);
+    output.setRawBits((long long)this->fixed_point_num * other.fixed_point_num >> no_fractional_bits);
     return output;
 }
 
 Fixed Fixed::operator/(const Fixed& other) const
 {
     Fixed output;
-    output.setRawBits(this->fixed_point_num/other.fixed_point_num);
+    output.setRawBits(((long long)this->fixed_point_num << no_fractional_bits) / other.fixed_point_num);
     return output;
 }
 
@@ -127,10 +127,11 @@ Fixed& Fixed::operator++()
     return *this;
 }
 
-Fixed& Fixed::operator++(int)
+Fixed Fixed::operator++(int)
 {
+    Fixed tmp = *this;
     ++fixed_point_num;
-    return *this;
+    return tmp;
 }
 
 Fixed& Fixed::operator--()
@@ -139,10 +140,11 @@ Fixed& Fixed::operator--()
     return *this;
 }
 
-Fixed& Fixed::operator--(int)
+Fixed Fixed::operator--(int)
 {
+    Fixed tmp = *this;
     --fixed_point_num;
-    return *this;
+    return tmp;
 }
 
 Fixed& Fixed::min(Fixed& a, Fixed& b)
