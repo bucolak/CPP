@@ -9,17 +9,13 @@ ClapTrap::ClapTrap()
 ClapTrap::ClapTrap(std::string name)
     : name(name), hit_p(10), energy_p(10), attack_damage(0)
 {
-    std::cout<<"ClapTrap's A parameterized constructor was called"<<std::endl;
+    std::cout<<"ClapTrap's parameterized constructor was called"<<std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap &other)
     : name(other.name), hit_p(other.hit_p), energy_p(other.energy_p), attack_damage(other.attack_damage)
 {
     std::cout<<"ClapTrap's Copy constructor called"<<std::endl;
-    this->name = other.name;
-    this->hit_p = other.hit_p;
-    this->energy_p = other.energy_p;
-    this->attack_damage = other.attack_damage;
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& other)

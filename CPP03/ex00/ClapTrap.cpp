@@ -16,10 +16,6 @@ ClapTrap::ClapTrap(const ClapTrap &other)
     : name(other.name), hit_p(other.hit_p), energy_p(other.energy_p), attack_damage(other.attack_damage)
 {
     std::cout<<"Copy constructor called"<<std::endl;
-    this->name = other.name;
-    this->hit_p = other.hit_p;
-    this->energy_p = other.energy_p;
-    this->attack_damage = other.attack_damage;
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& other)

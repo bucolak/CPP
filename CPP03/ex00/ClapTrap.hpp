@@ -1,5 +1,5 @@
-#ifndef CLAP_TRAP
-#define CLAP_TRAP
+#ifndef CLAPTRAP_HPP
+#define CLAPTRAP_HPP
 
 #include <iostream>
 
