@@ -18,6 +18,8 @@ class Bureaucrat
 
         std::string getName() const;
         int getGrade() const;
+        void incGrade(int x);
+        void decGrade(int x);
 
         class GradeTooHighException : public std::exception
         {

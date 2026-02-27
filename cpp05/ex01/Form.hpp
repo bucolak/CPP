@@ -1,15 +1,18 @@
 #ifndef FORM_HPP
 #define FORM_HPP
 
-#include "Bureaucrat.hpp"
+#include <iostream>
+#include <exception>
+
+class Bureaucrat;
 
 class Form
 {
     private:
         const std::string name;
         bool sign;
-        const int s_grade;
-        const int e_grade;
+        const int signGrade;
+        const int execGrade;
     public:
         Form();
         Form(std::string name, int s_grade, int e_grade);
@@ -34,5 +37,7 @@ class Form
                 const char* what() const throw();
         };
 };
+
+std::ostream& operator<<(std::ostream& out, const Form& obj);
 
 #endif

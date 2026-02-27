@@ -3,36 +3,38 @@
 
 int main()
 {
+
+    Bureaucrat b1("Kathy1", 30);
+    Form f1("A", 50, 20);
+
+    std::cout<<b1<<std::endl;
+    std::cout<<f1<<std::endl;
+
     try
     {
-        Bureaucrat success_b("Kathy", 30);
-        Form success_f("A", 50, 20);
-        success_b.signForm(success_f);
+        Form f2("FormA", 0, 50);
     }
-    catch(const std::exception& e)
+    catch (std::exception &e)
     {
-        std::cout << e.what() << std::endl;
+        std::cout << "FormA : " << e.what() << std::endl;
     }
 
-    try 
+    try
     {
-        Bureaucrat unsuccess_b("Olivia", 100);
-        Form unsuccess_f("B", 50,30);
-        unsuccess_b.signForm(unsuccess_f);
+        Form f3("FormB", 50, 151);
     }
-    catch(const std::exception& e)
+    catch (std::exception &e)
     {
-        std::cout << e.what() << std::endl;
+        std::cout << "FormB : " << e.what() << std::endl;
     }
 
-    try 
-    {
-        Bureaucrat high_success_b("Bella", 1);
-        Form high_success_f("B", 1, 2);
-        high_success_b.signForm(high_success_f);
-    }
-    catch(const std::exception& e)
-    {
-        std::cout << e.what() << std::endl;
-    }
+    Bureaucrat b2("Kathy2", 50);
+    Bureaucrat b3("Kathy3", 150);
+
+    Form f4("FormC", 50, 30);
+
+    b2.signForm(f4);
+    b3.signForm(f4);
+
+    return 0;
 }

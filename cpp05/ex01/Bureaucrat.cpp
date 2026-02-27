@@ -47,9 +47,23 @@ void Bureaucrat::signForm(Form &f)
 	}
 	catch(std::exception& e)
 	{
-		std::cout<<name<<" couldn't sign"<<f.getName()
+		std::cout<<name<<" couldn't sign "<<f.getName()
               <<" because "<<e.what()<<std::endl;
 	}
+}
+
+void Bureaucrat::decGrade(int x)
+{
+	if((grade + x) > 150)
+		throw GradeTooLowException();
+	grade += x;
+}
+
+void Bureaucrat::incGrade(int x)
+{
+	if((grade - x) < 1)
+		throw GradeTooHighException();
+	grade -= x;
 }
 
 const char* Bureaucrat::GradeTooHighException::what() const throw()

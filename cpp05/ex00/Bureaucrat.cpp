@@ -37,6 +37,20 @@ std::ostream& operator<<(std::ostream& out, const Bureaucrat& obj)
 	return out;
 }
 
+void Bureaucrat::decGrade(int x)
+{
+	if((grade + x) > 150)
+		throw GradeTooLowException();
+	grade += x;
+}
+
+void Bureaucrat::incGrade(int x)
+{
+	if((grade - x) < 1)
+		throw GradeTooHighException();
+	grade -= x;
+}
+
 const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
 	return "Too High Value";

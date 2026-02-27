@@ -1,19 +1,20 @@
 #include "Form.hpp"
+#include "Bureaucrat.hpp"
 
-Form::Form() : name(""), sign(false), s_grade(150), e_grade(150) {}
+Form::Form() : name(""), sign(false), signGrade(150), execGrade(150) {}
 
-Form::Form(std::string name, int s_grade, int e_grade)
-    : name(name), sign(false), s_grade(s_grade), e_grade(e_grade)
+Form::Form(std::string name, int signGrade, int execGrade)
+    : name(name), sign(false), signGrade(signGrade), execGrade(execGrade)
 {
-	if (s_grade < 1 || e_grade < 1)
+	if (signGrade < 1 || execGrade < 1)
         throw GradeTooHighException();
 
-    if (s_grade > 150 || e_grade > 150)
+    if (signGrade > 150 || execGrade > 150)
         throw GradeTooLowException();
 }
 
 Form::Form(const Form &other)
-    : name(other.name), sign(other.sign), s_grade(other.s_grade), e_grade(other.e_grade) {}
+    : name(other.name), sign(other.sign), signGrade(other.signGrade), execGrade(other.execGrade) {}
 
 Form& Form::operator=(const Form& other)
 {
@@ -33,12 +34,12 @@ bool Form::getSign() const
 
 int Form::getGradeE() const
 {
-    return e_grade;
+    return execGrade;
 }
 
 int Form::getGradeS() const
 {
-    return s_grade;
+    return signGrade;
 }
 
 std::ostream& operator<<(std::ostream& out, const Form& obj)
@@ -60,7 +61,7 @@ const char* Form::GradeTooLowException::what() const throw()
 
 void Form::beSigned(const Bureaucrat &b)
 {
-    if (b.getGrade() > s_grade)
+    if (b.getGrade() > signGrade)
         throw GradeTooLowException();
     else
         sign = true;
