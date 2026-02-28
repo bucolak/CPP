@@ -22,7 +22,7 @@ PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPard
 void PresidentialPardonForm::execute(Bureaucrat const & executor) const
 {
     executeCheck(executor);
-    std::cout<<target<<", forgiven by Zaphod Beeblebrox"<<std::endl;
+    std::cout<<target<<" has been pardoned by Zaphod Beeblebrox"<<std::endl;
 }
 
 PresidentialPardonForm::~PresidentialPardonForm() {}

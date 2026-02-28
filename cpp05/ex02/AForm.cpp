@@ -51,7 +51,7 @@ std::ostream& operator<<(std::ostream& out, const AForm& obj)
 void AForm::executeCheck(Bureaucrat const & executor) const
 {
     if(!getSign())
-        throw GradeTooLowException();
+        throw FormNotSignedException();
     if(executor.getGrade() > e_grade)
         throw GradeTooLowException();
 }
@@ -64,6 +64,11 @@ const char* AForm::GradeTooHighException::what() const throw()
 const char* AForm::GradeTooLowException::what() const throw()
 {
 	return "Too Low Value";
+}
+
+const char* AForm::FormNotSignedException::what() const throw()
+{
+	return "Form Not Signed";
 }
 
 void AForm::beSigned(const Bureaucrat &b)

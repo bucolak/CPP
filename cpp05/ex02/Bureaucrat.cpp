@@ -47,7 +47,7 @@ void Bureaucrat::signForm(AForm &f)
 	}
 	catch(std::exception& e)
 	{
-		std::cout<<name<<" couldn't sign"<<f.getName()
+		std::cout<<name<<" couldn't sign "<<f.getName()
               <<" because "<<e.what()<<std::endl;
 	}
 }
