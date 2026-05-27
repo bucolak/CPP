@@ -11,7 +11,7 @@ int main()
     Intern i;
     AForm *f;
 
-    f = i.makeForm("robotomy request", "target1");
+    f = i.makeForm("RobotomyRequestForm", "target1");
     if(f)
     {
         Bureaucrat b1("First", 1);
