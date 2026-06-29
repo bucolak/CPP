@@ -11,7 +11,19 @@ int main()
     Intern i;
     AForm *f;
 
-    f = i.makeForm("RobotomyRequestForm", "target1");
+    f = i.makeForm("robotomy request", "test");
+    if (f)
+    {
+        Bureaucrat boss("Boss", 1);
+        boss.executeForm(*f);
+        boss.signForm(*f);
+        boss.executeForm(*f);
+        delete f;
+    }
+
+    std::cout<<std::endl;
+
+    f = i.makeForm("robotomy request", "target1");
     if(f)
     {
         Bureaucrat b1("First", 1);

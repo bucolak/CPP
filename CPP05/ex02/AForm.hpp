@@ -15,7 +15,7 @@ class AForm
         AForm(std::string name, int s_grade, int e_grade);
         AForm(const AForm &other);
         AForm& operator=(const AForm& other);
-        ~AForm();
+        virtual ~AForm();
 
         std::string getName() const;
         bool getSign() const;
@@ -41,5 +41,7 @@ class AForm
                 const char* what() const throw();
         };
 };
+
+std::ostream& operator<<(std::ostream& out, const AForm& obj);
 
 #endif

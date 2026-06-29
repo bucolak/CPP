@@ -31,7 +31,7 @@ int main()
     try
     {
         Bureaucrat a3("Sam3", 1);
-        a3.incGrade(1);
+        a3.incGrade();
     }
     catch(std::exception& e)
     {
@@ -41,7 +41,7 @@ int main()
     try
     {
         Bureaucrat a4("Sam4", 150);
-        a4.decGrade(1);
+        a4.decGrade();
     }
     catch(std::exception& e)
     {

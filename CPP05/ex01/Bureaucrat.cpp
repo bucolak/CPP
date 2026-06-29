@@ -52,18 +52,18 @@ void Bureaucrat::signForm(Form &f)
 	}
 }
 
-void Bureaucrat::decGrade(int x)
+void Bureaucrat::decGrade()
 {
-	if((grade + x) > 150)
+	if((grade + 1) > 150)
 		throw GradeTooLowException();
-	grade += x;
+	grade += 1;
 }
 
-void Bureaucrat::incGrade(int x)
+void Bureaucrat::incGrade()
 {
-	if((grade - x) < 1)
+	if((grade - 1) < 1)
 		throw GradeTooHighException();
-	grade -= x;
+	grade -= 1;
 }
 
 const char* Bureaucrat::GradeTooHighException::what() const throw()
