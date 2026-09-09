@@ -16,7 +16,7 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other)
 
 bool isNumber(std::string str)
 {
-    int i = 0;
+    size_t i = 0;
     while(i < str.size())
     {
         if(!std::isdigit(str[i]))
@@ -28,7 +28,7 @@ bool isNumber(std::string str)
 
 void control_of_date(std::string date)
 {
-    int c = std::count(date.begin(), date.end(), "-");
+    int c = std::count(date.begin(), date.end(), '-');
     if(c!=2)
         throw std::runtime_error("Error: bad input => " + date);
     size_t f = date.find("-");
@@ -36,7 +36,7 @@ void control_of_date(std::string date)
     if(year.size() !=4 || !isNumber(year))
         throw std::runtime_error("Error: bad input => " + date);
     size_t s = date.find("-",f+1);
-    std::string month = date.substr(f+1, s-f);
+    std::string month = date.substr(f+1, s-f-1);
     if((!isNumber(month)) || !(std::atoi(month.c_str()) >=1 && std::atoi(month.c_str()) <=12))
         throw std::runtime_error("Error: bad input => " + date);
     std::string day = date.substr(s+1, date.size()-s);
@@ -46,23 +46,28 @@ void control_of_date(std::string date)
 
 void control_of_val(std::string val)
 {
-    int c = 0;
-
+    int dot = 0;
+    int digit = 0;
     if(val.empty())
         throw std::runtime_error("Error: no value in Input File.");
     if(val[0] == '-')
         throw std::runtime_error("Error: not a positive number.");
     for(size_t i = 0; i < val.size(); i++)
     {
-        if(val[i] == '.')
+        if((i != 0) && (i != val.size()-1) && val[i] == '.')
         {
-            c++;
+            dot++;
             continue;
         }
-        if(!std::isdigit(val[i]) || c > 1)
-            throw std::runtime_error("Error: invalid value.");
+        if(!std::isdigit(val[i]) || dot > 1)
+        throw std::runtime_error("Error: invalid value.");
+        digit++;
     }
-    if()
+    if(digit < 1)
+        throw std::runtime_error("Error: invalid value.");
+    float num = std::atof(val.c_str());
+    if(num > 1000)
+        throw std::runtime_error("Error: too large a number.");
 }
 
 void BitcoinExchange::print_bitcoin(std::string inputFileName)
@@ -80,23 +85,38 @@ void BitcoinExchange::print_bitcoin(std::string inputFileName)
         float val = std::atof(line.substr(i+1, line.size()-i+1).c_str());
         rate[key] = val;
     }
-
-    std::ifstream inputFile(inputFileName);
+    
+    std::ifstream inputFile(inputFileName.c_str());
     std::map<std::string, float>::iterator it;
     if(!inputFile)
         throw std::runtime_error("Error: could not open file.");
+    std::getline(inputFile, line);
     while(std::getline(inputFile, line))
     {
-        int i = line.find("|");
-        std::string key = line.substr(0, i-1);
-        control_of_date(key);
-        it = rate.lower_bound(key);
-        if(it == rate.end() || it->first != key)
-            --it;
-        std::string val = line.substr(i+1, line.size()-i+1);
-        control_of_val(val);
-        float newVal = it->second * std::atof(val.c_str());
-        std::cout<<key<<" => "<<val<<" = "<<newVal<<std::endl;
+        try
+        {
+            size_t i = line.find("|");
+            if(i == std::string::npos)
+                throw std::runtime_error("Error: bad input => " + line);
+            std::string key = line.substr(0, i-1);
+            control_of_date(key);
+            it = rate.lower_bound(key);
+            if(it == rate.end())
+                --it;
+            if(it->first != key)
+            {
+                if(it == rate.begin())
+                    throw std::runtime_error("Error: no found date.");
+            }
+            std::string val = line.substr(i+2, line.size()-i+1);
+            control_of_val(val);
+            float newVal = it->second * std::atof(val.c_str());
+            std::cout<<key<<" => "<<val<<" = "<<newVal<<std::endl;
+        }
+        catch (std::exception &e)
+        {
+            std::cout<<e.what()<<std::endl;
+        }
     }
 }
 
