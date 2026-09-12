@@ -1,0 +1,66 @@
+std::lower_bound(iterator ilk, iterator son, const int& deger)
+Parametreler: Aramanın başlayacağı sınır (genelde vec.begin()), aramanın biteceği sınır (genelde vec.end()) ve aradığın tam sayı.
+Dönüş Tipi: iterator (Aranan sayının düzeni bozmadan araya girebileceği tam o konumu işaret eden bir iteratör döndürür).   
+
+-----------------------------------------------------------------------------------------------
+
+std::distance(iterator baslangic, iterator bitis)
+Parametreler: Arasındaki adımı ölçmek istediğin ilk konum iteratörü ve ikinci konum iteratörü.
+Dönüş Tipi: ptrdiff_t (Temelde bir tam sayıdır. İki konum arasında kaç indeks/adım fark olduğunu söyler).
+
+-----------------------------------------------------------------------------------------------
+
+push_back(const int& deger)
+Parametreler: Vektörün en sonuna eklenecek tam sayı.
+Dönüş Tipi: void (Bir şey döndürmez, işlemi yapıp bitirir).
+
+-----------------------------------------------------------------------------------------------
+
+insert(iterator konum, const int& deger)
+Parametreler: Sayının ekleneceği konumu belirten iteratör (çoğunlukla lower_bound'dan elde ettiğin sonuç buraya yazılır) ve eklenecek tam sayı.
+Dönüş Tipi: iterator (Yeni eklediğin sayının hafızadaki yeni konumunu işaret eden bir iteratör döndürür).
+
+-----------------------------------------------------------------------------------------------
+
+at(size_t indeks)
+Parametreler: Okumak veya değiştirmek istediğin elemanın sıra numarası (pozitif tam sayı, 0'dan başlar).
+Dönüş Tipi: int& (O indeksteki sayıya doğrudan referans döndürür).
+
+-----------------------------------------------------------------------------------------------
+
+front() ve back()
+Parametreler: İkisi de parametre almaz ().
+Dönüş Tipi: int& (front en baştaki, back en sondaki sayıya doğrudan referans döndürür).
+
+-----------------------------------------------------------------------------------------------
+
+reserve(size_t kapasite)
+Parametreler: Vektör için arka planda ayrılmasını istediğin toplam eleman kapasitesi (pozitif tam sayı, örneğin 3000).
+Dönüş Tipi: void (Bir şey döndürmez, sadece bellekte yeri hazırlar).
+-----------------------------------------------------------------------------------------------
+
+
+#include <utility>
+#include <vector>
+
+// İkilileri tutan ana otobüsümüz (vektör)
+std::vector< std::pair<int, int> > takimlar;
+
+int kazanan = 15;
+int kaybeden = 3;
+
+// Kazananı sola (first), kaybedeni sağa (second) koyup vektöre ekliyoruz
+takimlar.push_back(std::make_pair(kazanan, kaybeden));
+
+// Vektördeki ilk takımın elemanlarını okuma
+int okunan_sampiyon = takimlar[0].first;  // 15 sonucunu verir
+int okunan_kaybeden = takimlar[0].second; // 3 sonucunu verir
+
+------------------------------------------------------------------------------------------------
+    // // print of pair----------------------------------------------------
+    // for(size_t i = 0; i < pVector.size(); i++)
+    // {
+    //     std::cout<<"["<<pVector[i].first<<", "<<pVector[i].second<<"]"<<std::endl;
+    // }
+    // std::cout<<spare<<std::endl;
+    // //-------------------------------------------------------------------
