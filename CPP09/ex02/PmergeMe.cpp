@@ -34,36 +34,38 @@ void PmergeMe::helper(std::vector<std::pair<int, int> >& pVector)
 
     helper(one);
     helper(two);
-    int j = 0;
-    for(size_t i = 0; (i < one.size() && i < two.size()); i++)
+    size_t p = 0;
+    size_t o = 0;
+    size_t t = 0;
+    while((o < one.size()) && (t < two.size()))
     {
-        if(one[i].second < two[i].second)
+        if(one[o].second < two[t].second)
         {
-            pVector[j] = one[i];
-            pVector[j+1] = two[i];
-            j+=2;
+            pVector[p] = one[o];
+            o++;
+            p++;
         }
         else
         {
-            pVector[j] = two[i];
-            pVector[j+1] = one[i];
-            j+=2;
+            pVector[p] = two[t];
+            t++;
+            p++;
         }
-        for(int a = 0; a < pVector.size(); a++)
-        {
-            if((a+1) < pVector.size())
-            {
-                if(pVector[i].second > pVector[i+1].second)
-                {
-                    std::pair<int, int> swap = pVector[i];
-                    pVector[i] = pVector[i+1];
-                    pVector[i+1] = swap;
-                }
-            }
-        }
-        
+    }
+    while(o < one.size())
+    {
+        pVector[p] = one[o];
+        p++;
+        o++;
+    }
+    while(t < two.size())
+    {
+        pVector[p] = two[t];
+        p++;
+        t++;
     }
 }
+
 
 void PmergeMe::JacobsthalRanking_vector(size_t size)
 {
@@ -98,26 +100,23 @@ void PmergeMe::sortWvector(char *argv[])
         else
             spare = vecContainer[i];
     }
-    for(size_t i = 0; i < pVector.size(); i++)
-     {
-         std::cout<<"["<<pVector[i].first<<", "<<pVector[i].second<<"]"<<std::endl;
-     }
+    /*for(size_t i = 0; i < pVector.size(); i++)
+        std::cout<<"["<<pVector[i].first<<", "<<pVector[i].second<<"]"<<std::endl;*/
 
      std::cout<<spare<<std::endl;
     helper(pVector);
-    for(size_t i = 0; i < pVector.size(); i++)
-     {
-         std::cout<<"["<<pVector[i].first<<", "<<pVector[i].second<<"]"<<std::endl;
-     }
-     std::cout<<"burda"<<std::endl;
-   //JacobsthalRanking_vector(pVector.size());
+    /*for(size_t i = 0; i < pVector.size(); i++)
+        std::cout<<"["<<pVector[i].first<<", "<<pVector[i].second<<"]"<<std::endl;*/ 
+    JacobsthalRanking_vector(pVector.size());
 
     /*for(size_t i = 0; i < jacobStahlNumbers_vector.size();i++)
     {
         std::cout<<jacobStahlNumbers_vector[i]<<std::endl;
     }*/
-
-    // pVector.insert(pVector.begin(), pVector.)
+    vecContainer.push_back(pVector[0].first);
+    for(int i = 0; i < pVector.size(); i++)
+        vecContainer.insert(vecContainer.begin(), pVector[i].second);
+    
 }
 
 PmergeMe::~PmergeMe() {}
