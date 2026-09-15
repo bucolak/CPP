@@ -23,7 +23,7 @@ class PmergeMe
         void sortWvector(char *argv[]);
         void sortWdeque(char *argv[]);
 
-        void helper(std::vector<std::pair<int, int> >& pVector, int& spare);
+        void helper(std::vector<std::pair<int, int> >& pVector);
         void JacobsthalRanking_vector(size_t size);
 };
 

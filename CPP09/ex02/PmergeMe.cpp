@@ -18,32 +18,51 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& other)
     return *this;
 }
 
-void PmergeMe::helper(std::vector<std::pair<int, int> >& pVector, int& spare)
+void PmergeMe::helper(std::vector<std::pair<int, int> >& pVector)
 {
-    for(size_t i = 0; i < vecContainer.size(); i+=2)
+    if(pVector.size() == 1)
+        return ;
+    std::vector<std::pair<int, int> > one;
+    std::vector<std::pair<int, int> > two;
+    for(size_t i = 0; i < pVector.size(); i++)
     {
-        if((i+1) < pVector.size())
-        {
-            if(pVector[i] < pVector[i+1])
-                pVector.push_back(std::make_pair(pVector[i], pVector[i+1]));
-            else
-                pVector.push_back(std::make_pair(pVector[i+1], pVector[i]));
-        }
+        if(i < pVector.size()/2)
+            one.push_back(pVector[i]);
+        else
+            two.push_back(pVector[i]);
     }
 
-    for(size_t i = 0; i < pVector.size(); i+=2)
+    helper(one);
+    helper(two);
+    int j = 0;
+    for(size_t i = 0; (i < one.size() && i < two.size()); i++)
     {
-        if((i+1) < pVector.size())
+        if(one[i].second < two[i].second)
         {
-            if(pVector[i].second > pVector[i+1].second)
+            pVector[j] = one[i];
+            pVector[j+1] = two[i];
+            j+=2;
+        }
+        else
+        {
+            pVector[j] = two[i];
+            pVector[j+1] = one[i];
+            j+=2;
+        }
+        for(int a = 0; a < pVector.size(); a++)
+        {
+            if((a+1) < pVector.size())
             {
-                std::pair<int, int> swap = pVector[i];
-                pVector[i] = pVector[i+1];
-                pVector[i+1] = swap;
+                if(pVector[i].second > pVector[i+1].second)
+                {
+                    std::pair<int, int> swap = pVector[i];
+                    pVector[i] = pVector[i+1];
+                    pVector[i+1] = swap;
+                }
             }
         }
+        
     }
-    
 }
 
 void PmergeMe::JacobsthalRanking_vector(size_t size)
@@ -65,7 +84,7 @@ void PmergeMe::sortWvector(char *argv[])
     for(int i = 1; argv[i]; i++)
         vecContainer.push_back(atoi(argv[i]));
 
-    int spare;
+    int spare = -1;
     std::vector<std::pair<int, int> > pVector; // sola küçük, sağa büyük
     for(size_t i = 0; i < vecContainer.size(); i+=2)
     {
@@ -83,14 +102,14 @@ void PmergeMe::sortWvector(char *argv[])
      {
          std::cout<<"["<<pVector[i].first<<", "<<pVector[i].second<<"]"<<std::endl;
      }
-     std::cout<<spare<<std::endl;
+
      std::cout<<spare<<std::endl;
     helper(pVector);
     for(size_t i = 0; i < pVector.size(); i++)
      {
          std::cout<<"["<<pVector[i].first<<", "<<pVector[i].second<<"]"<<std::endl;
      }
-     std::cout<<spare<<std::endl;
+     std::cout<<"burda"<<std::endl;
    //JacobsthalRanking_vector(pVector.size());
 
     /*for(size_t i = 0; i < jacobStahlNumbers_vector.size();i++)

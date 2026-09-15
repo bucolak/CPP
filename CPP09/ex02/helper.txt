@@ -64,3 +64,17 @@ int okunan_kaybeden = takimlar[0].second; // 3 sonucunu verir
     // }
     // std::cout<<spare<<std::endl;
     // //-------------------------------------------------------------------
+
+
+
+Başlangıçta pVector = [(6,9), (3,8), (12,54), (1,2)]
+
+helper(one) -> [one = (6,9), (3,8)]  [two = (12,54), (1,2)]
+helper(one) -> [one = (6,9)]         [two = (3,8)]
+helper(one) -> return çünkü sadece (6,9)
+helper(two) -> return çünkü sadece (3,8)
+helper(two) -> [one = (12,54)]         [two = (1,2)]
+helper(two) -> return çünkü sadece (1,2)
+
+
+
