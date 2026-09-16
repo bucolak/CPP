@@ -7,6 +7,14 @@ int main(int argc, char* argv[])
         std::cout<<"Error: could not open file."<<std::endl;
         return 0;
     }
-    BitcoinExchange b;
-    b.print_bitcoin(argv[1]);
+    try
+    {
+        BitcoinExchange b;
+        b.print_bitcoin(argv[1]);
+    }
+    catch (std::exception &e)
+    {
+        std::cout<<e.what()<<std::endl;
+    }
+    return 0;
 }

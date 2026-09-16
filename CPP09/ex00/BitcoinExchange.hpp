@@ -5,6 +5,9 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <cstdlib>
+#include <cctype>
+#include <string>
 
 class BitcoinExchange
 {

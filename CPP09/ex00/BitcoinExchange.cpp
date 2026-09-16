@@ -37,10 +37,10 @@ void control_of_date(std::string date)
         throw std::runtime_error("Error: bad input => " + date);
     size_t s = date.find("-",f+1);
     std::string month = date.substr(f+1, s-f-1);
-    if((!isNumber(month)) || !(std::atoi(month.c_str()) >=1 && std::atoi(month.c_str()) <=12))
+    if((month.size() != 2) || (!isNumber(month)) || !(std::atoi(month.c_str()) >=1 && std::atoi(month.c_str()) <=12))
         throw std::runtime_error("Error: bad input => " + date);
     std::string day = date.substr(s+1, date.size()-s);
-    if(!isNumber(day) || !(std::atoi(day.c_str())>=1 && std::atoi(day.c_str())<=31))
+    if((day.size() != 2) || !isNumber(day) || !(std::atoi(day.c_str())>=1 && std::atoi(day.c_str())<=31))
         throw std::runtime_error("Error: bad input => " + date);
 }
 
@@ -49,7 +49,7 @@ void control_of_val(std::string val)
     int dot = 0;
     int digit = 0;
     if(val.empty())
-        throw std::runtime_error("Error: no value in Input File.");
+        throw std::runtime_error("Error: no value in input file.");
     if(val[0] == '-')
         throw std::runtime_error("Error: not a positive number.");
     for(size_t i = 0; i < val.size(); i++)
@@ -60,7 +60,7 @@ void control_of_val(std::string val)
             continue;
         }
         if(!std::isdigit(val[i]) || dot > 1)
-        throw std::runtime_error("Error: invalid value.");
+            throw std::runtime_error("Error: invalid value.");
         digit++;
     }
     if(digit < 1)
@@ -68,6 +68,15 @@ void control_of_val(std::string val)
     float num = std::atof(val.c_str());
     if(num > 1000)
         throw std::runtime_error("Error: too large a number.");
+}
+
+std::string myTrim(std::string s)
+{
+    size_t start = s.find_first_not_of(" \t\n");
+    if(start == std::string::npos)
+        return "";
+    size_t end = s.find_last_not_of(" \t\n");
+    return s.substr(start, end - start + 1);
 }
 
 void BitcoinExchange::print_bitcoin(std::string inputFileName)
@@ -90,25 +99,31 @@ void BitcoinExchange::print_bitcoin(std::string inputFileName)
     std::map<std::string, float>::iterator it;
     if(!inputFile)
         throw std::runtime_error("Error: could not open file.");
-    std::getline(inputFile, line);
+
+    bool firstLine = true;
     while(std::getline(inputFile, line))
     {
+        if(firstLine)
+        {
+            firstLine = false;
+            if(line.find("date") != std::string::npos && line.find("|") != std::string::npos)
+                continue;
+        }
         try
         {
             size_t i = line.find("|");
             if(i == std::string::npos)
                 throw std::runtime_error("Error: bad input => " + line);
-            std::string key = line.substr(0, i-1);
+            std::string key = myTrim(line.substr(0, i));
             control_of_date(key);
             it = rate.lower_bound(key);
-            if(it == rate.end())
-                --it;
-            if(it->first != key)
+            if(it == rate.end() || it->first != key)
             {
                 if(it == rate.begin())
                     throw std::runtime_error("Error: no found date.");
+                --it;
             }
-            std::string val = line.substr(i+2, line.size()-i+1);
+            std::string val = myTrim(line.substr(i+1));
             control_of_val(val);
             float newVal = it->second * std::atof(val.c_str());
             std::cout<<key<<" => "<<val<<" = "<<newVal<<std::endl;
