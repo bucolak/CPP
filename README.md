@@ -1,6 +1,6 @@
 _This project has been created as part of the 42 curriculum by bucolak._
 
-# C++ Modules (CPP00 – CPP09)
+# C++ Modules (CPP00 – CPP09) 
 
 My solutions to the ten **C++98** modules of the 42 curriculum — a step-by-step introduction to object-oriented programming, from classes to templates and the STL. Every exercise compiles with `c++ -Wall -Wextra -Werror -std=c++98`.
 
